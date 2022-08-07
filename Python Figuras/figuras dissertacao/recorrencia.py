@@ -28,7 +28,7 @@ G=nx.from_numpy_matrix(A,create_using=nx.Graph())
 
 pos = nx.circular_layout(G)
 
-options = {"edgecolors": "tab:gray", "node_size":2000, "alpha": 1}
+options = {"edgecolors": "tab:gray", "node_size":1400, "alpha": 1}
 nodes=nx.draw_networkx_nodes(G, pos, node_color="tab:green", **options)
 nodes.set_edgecolor('k')
 
@@ -42,7 +42,7 @@ nx.draw_networkx_labels(G, pos,font_color="whitesmoke")
 
 plt.tight_layout()
 plt.axis("off")
-plt.savefig('recorrencia.png', dpi=300)
+plt.savefig('recorrencia.pdf', dpi=300)
 plt.show()
 
 

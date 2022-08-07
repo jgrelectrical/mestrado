@@ -2,7 +2,9 @@ function CC_medio=coeficiente_agrupamento_direcionado(W1)
 
 %entrada
 
-N=20;
+[n_linhas,n_colunas] = size(W1);
+
+N = n_colunas; 
 W=W1;
 
 A  = zeros(N);
@@ -14,15 +16,6 @@ for i=1:N
     end
 end
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%densidade
-linhas = 0;
-for i=1:N
-    for j=1:N
-        linhas = linhas+A(i,j);       
-    end
-end
-densidade = linhas/(N*(N-1));
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %grau de conectividade direcionado
@@ -69,58 +62,31 @@ GC_medio=soma/(2*N);
 %grau de conectividade direcionado
 
 
-s_in= zeros(N,1);
-s_out= zeros(N,1);
-s = zeros(N,1);
 
-
-for i=1:N
-    soma =  0;
-    for j=1:N
-        if i~=j
-        soma = soma+W(j,i); 
-        end
-    end
-    s_in(i)=soma;
-end
-
-for i=1:N
-    soma =  0;
-    for j=1:N
-        if i~=j
-            soma = soma+W(i,j);
-        end
-    end
-    s_out(i)=soma;
-end
-
-
-soma =  0;
-for i=1:N
-    s(i) = s_in(i)+s_out(i);
-    soma = soma+s(i);     
-end
-
-s_total=soma/(2*N);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 W_norma = zeros(N);
+% W_norma =W;
 W_soma = zeros(N);
+Wbarra = zeros(N);
+maximovalor = max(W(:));
 
 for i=1:N
     for j=1:N
-        if i~=j
-        W_norma(i,j)=(W(i,j))^1/3;
-        end
+        Wbarra(i,j)=W(i,j)/maximovalor;
     end
 end
 
 for i=1:N
     for j=1:N
-        if i~=j
+        W_norma(i,j)=(Wbarra(i,j))^1/3;
+    end
+end
+
+for i=1:N
+    for j=1:N
         W_soma(i,j)=W_norma(i,j)+W_norma(j,i);
-        end
     end
 end
 Ar = W;
@@ -137,16 +103,15 @@ for i = 1:N
     k_d(i)=A2(i,i);    
 end
 
-W2 = W_soma*W_soma;
-W3 = W2*W_soma;
+W3 = W_soma^3;
 CC = zeros(N,1);
 
 
 for i=1:N
-    if (s(i)*(s(i)-1))-2*k_d(i)==0
+    if (k(i)*(k(i)-1)-2*k_d(i))==0
         CC(i)=0;
     else
-        CC(i)=W3(i,i)/(2*(s(i)*(s(i)-1)-2*k_d(i)));
+        CC(i)=W3(i,i)/(2*(k(i)*(k(i)-1)-2*k_d(i)));
     end
 end
 soma = 0;

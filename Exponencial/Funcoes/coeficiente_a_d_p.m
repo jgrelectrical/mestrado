@@ -2,7 +2,9 @@ function CC_medio=coeficiente_a_d_p(W1)
 
 %entrada
 
-N=20;
+[n_linhas,n_colunas] = size(W1);
+
+N = n_colunas; 
 W=W1;
 
 A  = zeros(N);
@@ -16,13 +18,13 @@ end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %densidade
-linhas = 0;
-for i=1:N
-    for j=1:N
-        linhas = linhas+A(i,j);       
-    end
-end
-densidade = linhas/(N*(N-1));
+% linhas = 0;
+% for i=1:N
+%     for j=1:N
+%         linhas = linhas+A(i,j);       
+%     end
+% end
+% densidade = linhas/(N*(N-1));
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %grau de conectividade direcionado
@@ -73,8 +75,8 @@ s_in= zeros(N,1);
 s_out= zeros(N,1);
 s = zeros(N,1);
 
-Ma1 = A'*W;
-Ma2 = A*W';
+% Ma1 = A'*W;
+% Ma2 = A*W';
 
 for i=1:N
     soma =  0;
@@ -153,6 +155,24 @@ P2 = Ar+Ar';
 P3 = P2*P2;
 
 W3 = P1*P3;
+
+%%%%%%%%%%%%%%
+Apeso = W1;
+Abinario = zeros(N,N);
+
+for i=1:n_linhas    
+    for  j=1:n_linhas        
+        if W1(i,j)~=0
+            Abinario(i,j)=1;
+        end
+    end    
+end
+
+numerador = ((Apeso+Apeso')*((Abinario+Abinario')^2));
+
+%%%%%%%%%%%%%%
+
+
 for i=1:N
     if (s(i)*(k(i)-1))-2*s_d(i)==0
         CC(i)=0;

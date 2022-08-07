@@ -94,7 +94,7 @@ S2 = [];
 BC2 = [];
 Matriz2 = zeros(Q);
 Markov2={};
-for i= 1:5000
+for i= 1:1000
 
     Total = qintervalo_k(serie_erro_ordenada,sinal_original_const,Q,k);
     W2 =  Total.matriz;

@@ -25,5 +25,5 @@ sns.heatmap(A,annot=True,cbar=False,cmap='Greens',annot_kws={"size": 20}, linewi
 
 sns.set(font_scale=2)
 
-plt.savefig('recorrenciamatrix.png', dpi=300)
+plt.savefig('recorrenciamatrix.pdf', dpi=300)
 plt.show()

@@ -53,20 +53,7 @@ end
 
 %     calcula_matriz_transposta(n,m,W,T);
 
-for i=1:N
-    for j=1:N
-        
-       if i==j
-          
-           T(i,j)= W(i,j);
-       else
-           aux = W(i,j);
-           T(i,j)= W(j,i);
-           W(j,i) = aux; 
-       end
-    end
-
-end
+T = W';
 %     calcula_matriz_p(n,m,P);
 
 for i=1:N
